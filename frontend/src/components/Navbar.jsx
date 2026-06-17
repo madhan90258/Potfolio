@@ -1,18 +1,20 @@
 function Navbar() {
   return (
     <nav className="fixed top-0 left-0 w-full h-20 bg-black/95 backdrop-blur-md border-b border-yellow-500/20 z-50">
-
-      <div className="max-w-7xl mx-auto h-full px-10 grid grid-cols-3 items-center">
+      
+      <div className="max-w-7xl mx-auto h-full px-8 flex items-center justify-between">
 
         {/* Logo */}
-        <div className="flex justify-start items-center">
-          <h1 className="text-3xl font-bold tracking-wider text-yellow-400 cursor-pointer">
-            MADHAN RAJ
-          </h1>
+        <div className="flex items-center">
+          <a href="#hero">
+            <h1 className="text-3xl font-bold tracking-wider text-yellow-400 hover:text-yellow-300 transition duration-300">
+              MADHAN RAJ
+            </h1>
+          </a>
         </div>
 
-        {/* Navigation */}
-        <ul className="flex justify-center items-center gap-12 text-white font-medium text-lg">
+        {/* Navigation Links */}
+        <ul className="hidden md:flex items-center gap-10 text-white font-medium text-lg">
 
           <li>
             <a
@@ -43,6 +45,15 @@ function Navbar() {
 
           <li>
             <a
+              href="#experience"
+              className="hover:text-yellow-400 transition duration-300"
+            >
+              Experience
+            </a>
+          </li>
+
+          <li>
+            <a
               href="#contact"
               className="hover:text-yellow-400 transition duration-300"
             >
@@ -52,9 +63,24 @@ function Navbar() {
 
         </ul>
 
-        {/* Login */}
-        <div className="flex justify-end">
-          <button className="bg-yellow-400 text-black px-5 py-2 rounded-lg font-semibold hover:bg-yellow-300 transition duration-300 shadow-lg shadow-yellow-500/20">
+        {/* Admin Login Button */}
+        <div>
+          <button
+            className="
+              bg-yellow-400
+              text-black
+              px-5
+              py-2.5
+              rounded-lg
+              font-semibold
+              hover:bg-yellow-300
+              hover:scale-105
+              transition-all
+              duration-300
+              shadow-lg
+              shadow-yellow-500/20
+            "
+          >
             Admin Login
           </button>
         </div>

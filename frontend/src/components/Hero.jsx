@@ -1,12 +1,12 @@
 function Hero() {
   return (
-    <section className="min-h-screen bg-black text-white flex items-center">
+    <section className="min-h-screen bg-black text-white flex items-center pt-20">
 
-      <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
+      <div className="max-w-7xl mx-auto px-16 grid md:grid-cols-2 gap-20 items-center">
 
         {/* Left Side */}
 
-        <div>
+        <div className="translate-x-20">
 
           <p className="text-yellow-400 uppercase tracking-[5px] mb-4">
             Full Stack Developer
@@ -27,18 +27,6 @@ function Hero() {
             and building scalable applications.
           </p>
 
-          <div className="flex flex-wrap gap-4 mt-10">
-
-            <button className="bg-yellow-400 text-black font-semibold px-8 py-4 rounded-lg hover:scale-105 transition">
-              Download Resume
-            </button>
-
-            <button className="border border-yellow-400 px-8 py-4 rounded-lg hover:bg-yellow-400 hover:text-black transition">
-              View Projects
-            </button>
-
-          </div>
-
         </div>
 
         {/* Right Side */}
@@ -47,9 +35,11 @@ function Hero() {
 
           <div className="relative">
 
+            {/* Glow Effect */}
             <div className="absolute inset-0 bg-yellow-400 blur-3xl opacity-20 rounded-full"></div>
 
-            <div className="relative w-80 h-80 bg-[#111111] border border-yellow-400 rounded-3xl flex items-center justify-center">
+            {/* Profile Card */}
+            <div className="relative w-80 h-80 bg-[#111111] border-2 border-yellow-400 rounded-3xl flex items-center justify-center shadow-xl shadow-yellow-500/20">
 
               <h1 className="text-8xl font-bold text-yellow-400">
                 MRAJ
