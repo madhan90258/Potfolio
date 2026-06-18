@@ -40,7 +40,7 @@ function Projects() {
       id="projects"
       className="min-h-screen bg-black text-white py-20 px-6 lg:px-20 scroll-mt-28"
     >
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-6xl mx-auto translate-x-15">
 
         {/* Section Header */}
         <p className="text-white uppercase tracking-[4px] text-sm mb-4">

@@ -64,27 +64,28 @@ function Navbar() {
         </ul>
 
         {/* Admin Login Button */}
-        <div>
-          <button
-            className="
-              bg-yellow-400
-              text-black
-              px-5
-              py-2.5
-              rounded-lg
-              font-semibold
-              hover:bg-yellow-300
-              hover:scale-105
-              transition-all
-              duration-300
-              shadow-lg
-              shadow-yellow-500/20
-            "
-          >
-            Admin Login
-          </button>
-        </div>
-
+<div>
+  <a href="/admin/login">
+    <button
+      className="
+        bg-yellow-400
+        text-black
+        px-5
+        py-2.5
+        rounded-lg
+        font-semibold
+        hover:bg-yellow-300
+        hover:scale-105
+        transition-all
+        duration-300
+        shadow-lg
+        shadow-yellow-500/20
+      "
+    >
+      Admin Login
+    </button>
+  </a>
+</div>
       </div>
 
     </nav>

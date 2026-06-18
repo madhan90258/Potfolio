@@ -7,103 +7,156 @@ import {
 function Contact() {
   return (
     <section
-      id="contact"
-      className="bg-black text-white py-16 px-6 lg:px-20 scroll-mt-28"
-    >
-      <div className="max-w-7xl mx-auto">
+  id="contact"
+  className="min-h-screen bg-black text-white pt-16 px-6 lg:px-20 scroll-mt-20"
+>
+      <div className="max-w-6xl mx-auto w-full translate-x-15">
 
-        {/* Heading */}
-        <p className="text-white uppercase tracking-[4px] text-sm mb-4">
-          Contact Me
-        </p>
+        <div className="translate-x-15">
 
-        <h2 className="text-5xl lg:text-6xl font-bold text-yellow-400 mb-12">
-          Get In Touch
-        </h2>
+          {/* Heading */}
+          <p className="text-white uppercase tracking-[4px] text-sm mb-3">
+            Contact Me
+          </p>
 
-        <div className="grid lg:grid-cols-2 gap-10">
+          <h2 className="text-5xl lg:text-6xl font-bold text-yellow-400 mb-16">
+            Get In Touch
+          </h2>
 
-          {/* LEFT SIDE */}
-          <div
-            className="
-              bg-[#111111]
-              border border-yellow-500/10
-              rounded-3xl
-              p-8
-            "
-          >
-            <h3 className="text-2xl font-bold mb-6">
-              Let's Connect
-            </h3>
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
 
-            <p className="text-gray-400 leading-relaxed mb-10">
-              Have a project in mind, internship opportunity,
-              or want to collaborate? Feel free to send me a
-              message. I'll get back to you as soon as possible.
-            </p>
+            {/* LEFT SIDE */}
+            <div
+              className="
+                bg-[#111111]
+                border border-yellow-500/10
+                rounded-3xl
+                p-10
+                hover:border-yellow-400/30
+                transition-all
+                duration-300
+              "
+            >
+              <h3 className="text-4xl font-bold mb-6">
+                Let's Connect
+              </h3>
 
-            {/* Email */}
-            <div className="flex items-center gap-5 mb-8">
-              <div className="w-12 h-12 rounded-xl bg-yellow-500/10 flex items-center justify-center">
-                <FaEnvelope className="text-yellow-400 text-xl" />
+              <p className="text-gray-400 text-lg leading-relaxed mb-12">
+                Have a project idea, internship opportunity, or want to
+                collaborate? Feel free to send me a message.
+              </p>
+
+              {/* Email */}
+              <div className="flex items-center gap-6 mb-10">
+                <div className="w-16 h-16 min-w-[64px] rounded-xl bg-yellow-500/10 flex items-center justify-center">
+                  <FaEnvelope className="text-yellow-400 text-2xl" />
+                </div>
+
+                <div>
+                  <p className="text-gray-500 text-sm">
+                    Email
+                  </p>
+
+                  <h4 className="text-xl font-medium">
+                    madhan90258@gmail.com
+                  </h4>
+                </div>
               </div>
 
-              <div>
-                <p className="text-gray-500 text-sm">Email</p>
-                <h4 className="text-lg">
-                  madhan90258@gmail.com
-                </h4>
+              {/* Phone */}
+              <div className="flex items-center gap-6 mb-10">
+                <div className="w-16 h-16 min-w-[64px] rounded-xl bg-yellow-500/10 flex items-center justify-center">
+                  <FaPhoneAlt className="text-yellow-400 text-2xl" />
+                </div>
+
+                <div>
+                  <p className="text-gray-500 text-sm">
+                    Phone
+                  </p>
+
+                  <h4 className="text-xl font-medium">
+                    +91 90258 72161
+                  </h4>
+                </div>
               </div>
+
+              {/* Location */}
+              <div className="flex items-center gap-6">
+                <div className="w-16 h-16 min-w-[64px] rounded-xl bg-yellow-500/10 flex items-center justify-center">
+                  <FaMapMarkerAlt className="text-yellow-400 text-2xl" />
+                </div>
+
+                <div>
+                  <p className="text-gray-500 text-sm">
+                    Location
+                  </p>
+
+                  <h4 className="text-xl font-medium">
+                    Chennai, Tamil Nadu, India
+                  </h4>
+                </div>
+              </div>
+
             </div>
 
-            {/* Phone */}
-            <div className="flex items-center gap-5 mb-8">
-              <div className="w-12 h-12 rounded-xl bg-yellow-500/10 flex items-center justify-center">
-                <FaPhoneAlt className="text-yellow-400 text-xl" />
-              </div>
+            {/* RIGHT SIDE FORM */}
+            <div
+              className="
+                bg-[#111111]
+                border border-yellow-500/10
+                rounded-3xl
+                p-10
+                hover:border-yellow-400/30
+                transition-all
+                duration-300
+              "
+            >
+              <div className="text-center">
+  <p className="text-4xl font-bold">
+    MESSAGE
+  </p>
+</div>
+              <form className="space-y-6">
 
-              <div>
-                <p className="text-gray-500 text-sm">Phone</p>
-                <h4 className="text-lg">
-                  +91 9025872161
-                </h4>
-              </div>
-            </div>
+                <div className="grid md:grid-cols-2 gap-5">
 
-            {/* Location */}
-            <div className="flex items-center gap-5">
-              <div className="w-12 h-12 rounded-xl bg-yellow-500/10 flex items-center justify-center">
-                <FaMapMarkerAlt className="text-yellow-400 text-xl" />
-              </div>
+                  <input
+                    type="text"
+                    placeholder="Your Name"
+                    className="
+                      w-full
+                      bg-black
+                      border border-yellow-500/20
+                      rounded-xl
+                      px-5
+                      py-4
+                      outline-none
+                      focus:border-yellow-400
+                    "
+                  />
 
-              <div>
-                <p className="text-gray-500 text-sm">Location</p>
-                <h4 className="text-lg">
-                  Chennai, Tamil Nadu, India
-                </h4>
-              </div>
-            </div>
+                  <input
+                    type="email"
+                    placeholder="Your Email"
+                    className="
+                      w-full
+                      bg-black
+                      border border-yellow-500/20
+                      rounded-xl
+                      px-5
+                      py-4
+                      outline-none
+                      focus:border-yellow-400
+                    "
+                  />
 
-          </div>
-
-          {/* RIGHT SIDE FORM */}
-          <div
-            className="
-              bg-[#111111]
-              border border-yellow-500/10
-              rounded-3xl
-              p-8
-            "
-          >
-
-            <form className="space-y-5">
-
-              <div className="grid md:grid-cols-2 gap-5">
+                </div>
 
                 <input
                   type="text"
-                  placeholder="Your Name"
+                  placeholder="Subject"
                   className="
+                    w-full
                     bg-black
                     border border-yellow-500/20
                     rounded-xl
@@ -114,73 +167,44 @@ function Contact() {
                   "
                 />
 
-                <input
-                  type="email"
-                  placeholder="Your Email"
+                <textarea
+                  rows="8"
+                  placeholder="Your Message"
                   className="
+                    w-full
                     bg-black
                     border border-yellow-500/20
                     rounded-xl
                     px-5
                     py-4
+                    resize-none
                     outline-none
                     focus:border-yellow-400
                   "
-                />
+                ></textarea>
 
-              </div>
+                <button
+                  type="submit"
+                  className="
+                    w-full
+                    bg-yellow-400
+                    text-black
+                    font-bold
+                    py-4
+                    rounded-xl
+                    hover:bg-yellow-300
+                    hover:scale-[1.02]
+                    transition-all
+                    duration-300
+                    shadow-lg
+                    shadow-yellow-500/20
+                  "
+                >
+                  Send Message
+                </button>
 
-              <input
-                type="text"
-                placeholder="Subject"
-                className="
-                  w-full
-                  bg-black
-                  border border-yellow-500/20
-                  rounded-xl
-                  px-5
-                  py-4
-                  outline-none
-                  focus:border-yellow-400
-                "
-              />
-
-              <textarea
-                rows="6"
-                placeholder="Your Message"
-                className="
-                  w-full
-                  bg-black
-                  border border-yellow-500/20
-                  rounded-xl
-                  px-5
-                  py-4
-                  outline-none
-                  resize-none
-                  focus:border-yellow-400
-                "
-              ></textarea>
-
-              <button
-                type="submit"
-                className="
-                  w-full
-                  bg-yellow-400
-                  text-black
-                  font-semibold
-                  py-4
-                  rounded-xl
-                  hover:bg-yellow-300
-                  transition-all
-                  duration-300
-                  shadow-lg
-                  shadow-yellow-500/20
-                "
-              >
-                Send Message
-              </button>
-
-            </form>
+              </form>
+            </div>
 
           </div>
 

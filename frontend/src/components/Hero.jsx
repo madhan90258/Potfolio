@@ -42,7 +42,7 @@ function Hero() {
             <div className="relative w-80 h-80 bg-[#111111] border-2 border-yellow-400 rounded-3xl flex items-center justify-center shadow-xl shadow-yellow-500/20">
 
               <h1 className="text-8xl font-bold text-yellow-400">
-                MRAJ
+                MR
               </h1>
 
             </div>

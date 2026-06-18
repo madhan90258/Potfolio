@@ -19,7 +19,7 @@ function About() {
         <div className="grid grid-cols-1 lg:grid-cols-[6fr_4fr] gap-16 items-center">
 
           {/* LEFT SIDE */}
-          <div className="translate-x-15">
+          <div className="translate-x-15 flex flex-col h-full">
 
             {/* Heading */}
             <h2 className="text-5xl lg:text-6xl font-bold text-yellow-400 mb-8">
@@ -47,7 +47,7 @@ function About() {
             </p>
 
             {/* SOCIAL LINKS */}
-            <div className="flex justify-center items-center gap-10 mt-10 ml-12 mb-12">
+            <div className="flex justify-center items-center gap-10 mt-10 ml-12">
 
               <a
                 href="https://github.com/madhan90258"
@@ -59,7 +59,7 @@ function About() {
               </a>
 
               <a
-                href="https://www.linkedin.com/"
+                href="https://www.linkedin.com/in/madhanraj-v"
                 target="_blank"
                 rel="noreferrer"
                 className="text-4xl text-gray-400 hover:text-yellow-400 hover:scale-125 transition-all duration-300"
@@ -77,28 +77,34 @@ function About() {
             </div>
 
             {/* Resume Button */}
-<div className="flex justify-center ml-12">
-              <button
-  className="
-    px-12
-    py-4
-    text-xl
-    font-semibold
-    border-2
-    border-yellow-400
-    text-yellow-400
-    rounded-2xl
-    hover:bg-yellow-400
-    hover:text-black
-    hover:scale-110
-    transition-all
-    duration-300
-    shadow-lg
-    shadow-yellow-500/20
-  "
->
-                Download Resume
-              </button>
+            <div className="flex justify-center ml-12 mt-auto pt-12">
+
+              <a
+                href="/resume.pdf"
+                download="Madhan_Raj_Resume.pdf"
+              >
+                <button
+                  className="
+                    px-12
+                    py-4
+                    text-xl
+                    font-semibold
+                    border-2
+                    border-yellow-400
+                    text-yellow-400
+                    rounded-2xl
+                    hover:bg-yellow-400
+                    hover:text-black
+                    hover:scale-110
+                    transition-all
+                    duration-300
+                    shadow-lg
+                    shadow-yellow-500/20
+                  "
+                >
+                  Download Resume
+                </button>
+              </a>
 
             </div>
 
