@@ -1,4 +1,5 @@
 import { useState } from "react";
+import toast from "react-hot-toast";
 import {
   FaUserShield,
   FaEye,
@@ -6,22 +7,42 @@ import {
   FaArrowLeft,
 } from "react-icons/fa";
 
+import API from "../services/api";
+
 function AdminLogin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
 
-    if (
-      email === "admin@madhan.com" &&
-      password === "admin123"
-    ) {
-      localStorage.setItem("admin", "true");
+    try {
+      setLoading(true);
+
+      const { data } = await API.post("/auth/login", {
+        email,
+        password,
+      });
+
+      localStorage.setItem("token", data.token);
+
+      localStorage.setItem(
+        "admin",
+        JSON.stringify(data.admin)
+      );
+
+      toast.success("Login Successful");
+
       window.location.href = "/admin/dashboard";
-    } else {
-      alert("Invalid Email or Password");
+    } catch (error) {
+      alert(
+        error?.response?.data?.message ||
+          "Login Failed"
+      );
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -41,7 +62,7 @@ function AdminLogin() {
           relative
           w-full
           max-w-xl
-          min-h-[380px]
+          min-h-[420px]
           bg-gradient-to-br
           from-[#111111]
           to-[#0a0a0a]
@@ -73,33 +94,35 @@ function AdminLogin() {
 
         {/* Heading */}
         <div className="text-center mt-10 mb-8">
-          <h1 className="text-6xl font-bold text-yellow-400">
+          <h1 className="text-5xl md:text-6xl font-bold text-yellow-400">
             Admin Login
           </h1>
 
-          <p className="text-gray-400 text-xl mt-2">
+          <p className="text-gray-400 text-lg mt-3">
             Authorized Access Only
           </p>
         </div>
 
         {/* Form */}
         <form
-  onSubmit={handleLogin}
-  className="
-    mt-4
-    h-[240px]
-    flex
-    flex-col
-    justify-evenly
-    items-center
-  "
->
+          onSubmit={handleLogin}
+          className="
+            mt-4
+            flex
+            flex-col
+            gap-6
+            items-center
+          "
+        >
           {/* Email */}
           <input
             type="email"
-            placeholder="  Admin Email"
+            placeholder="Admin Email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) =>
+              setEmail(e.target.value)
+            }
+            required
             className="
               w-full
               max-w-lg
@@ -119,10 +142,17 @@ function AdminLogin() {
           {/* Password */}
           <div className="relative w-full max-w-lg">
             <input
-              type={showPassword ? "text" : "password"}
-              placeholder="  Password"
+              type={
+                showPassword
+                  ? "text"
+                  : "password"
+              }
+              placeholder="Password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) =>
+                setPassword(e.target.value)
+              }
+              required
               className="
                 w-full
                 h-14
@@ -162,9 +192,10 @@ function AdminLogin() {
 
           {/* Login Button */}
           <button
-            type="submit"   
+            type="submit"
+            disabled={loading}
             className="
-              w-40
+              w-48
               h-14
               bg-yellow-400
               text-black
@@ -177,10 +208,20 @@ function AdminLogin() {
               duration-300
               shadow-lg
               shadow-yellow-500/20
+              disabled:opacity-60
+              disabled:cursor-not-allowed
             "
           >
-            Login
+            {loading
+              ? "Logging In..."
+              : "Login"}
           </button>
+
+          {/* Demo Credentials */}
+          <div className="text-center text-sm text-gray-500">
+            <p>Email: admin@gmail.com</p>
+            <p>Password: admin123</p>
+          </div>
 
           {/* Back Button */}
           <a
@@ -194,7 +235,6 @@ function AdminLogin() {
               hover:text-yellow-400
               transition-all
               duration-300
-              text-lg
             "
           >
             <FaArrowLeft />

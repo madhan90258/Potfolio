@@ -11,7 +11,62 @@ html{
 }
 
 body{
-  background:#000;
+  font-family: Inter, sans-serif;
+  overflow-x:hidden;
+  background: linear-gradient(
+    135deg,
+    #020617 0%,
+    #0f172a 50%,
+    #111827 100%
+  );
   color:white;
-  font-family:Inter,sans-serif;
+  min-height:100vh;
+}
+
+/* Smooth Selection */
+::selection{
+  background:#facc15;
+  color:#000;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar{
+  width:8px;
+}
+
+::-webkit-scrollbar-track{
+  background:#0f172a;
+}
+
+::-webkit-scrollbar-thumb{
+  background:#facc15;
+  border-radius:20px;
+}
+
+::-webkit-scrollbar-thumb:hover{
+  background:#fde047;
+}
+
+/* Glass Effect Utility */
+.glass{
+  background:rgba(255,255,255,0.05);
+  backdrop-filter:blur(15px);
+  -webkit-backdrop-filter:blur(15px);
+  border:1px solid rgba(255,255,255,0.1);
+}
+
+/* Dashboard Card */
+.dashboard-card{
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(250,204,21,0.15);
+  backdrop-filter:blur(15px);
+  -webkit-backdrop-filter:blur(15px);
+  border-radius:24px;
+  transition:all 0.3s ease;
+}
+
+.dashboard-card:hover{
+  transform:translateY(-4px);
+  border-color:rgba(250,204,21,0.4);
+  box-shadow:0 15px 40px rgba(250,204,21,0.08);
 }
