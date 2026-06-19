@@ -155,129 +155,154 @@ function Contact() {
 
             {/* RIGHT SIDE FORM */}
             <div
-              className="
-                bg-[#111111]
-                border border-yellow-500/10
-                rounded-3xl
-                p-10
-                hover:border-yellow-400/30
-                transition-all
-                duration-300
-              "
-            >
-              <div className="text-center">
-                <p className="text-4xl font-bold">
-                  MESSAGE
-                </p>
-              </div>
+  className="
+  bg-white/[0.03]
+  backdrop-blur-xl
+  border border-yellow-500/20
+  rounded-3xl
+  p-12
+  lg:p-14
+  shadow-[0_0_40px_rgba(250,204,21,0.08)]
+"
+>
+<div className="mb-10 text-center">
+  <h3 className="text-3xl font-bold text-yellow-400">
+    Send Message
+  </h3>
 
-              <form
-                onSubmit={handleSubmit}
-                className="space-y-6 mt-8"
-              >
-                <div className="grid md:grid-cols-2 gap-5">
-                  <input
-                    type="text"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    placeholder="Your Name"
-                    required
-                    className="
-                      w-full
-                      bg-black
-                      border border-yellow-500/20
-                      rounded-xl
-                      px-5
-                      py-4
-                      outline-none
-                      focus:border-yellow-400
-                    "
-                  />
+  <p className="text-gray-400 mt-2">
+    Fill out the form below and I'll get back to you soon.
+  </p>
+</div>
 
-                  <input
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    placeholder="Your Email"
-                    required
-                    className="
-                      w-full
-                      bg-black
-                      border border-yellow-500/20
-                      rounded-xl
-                      px-5
-                      py-4
-                      outline-none
-                      focus:border-yellow-400
-                    "
-                  />
-                </div>
+<form
+  onSubmit={handleSubmit}
+  className="space-y-7 mt-8 flex flex-col items-center"
+>
+  {/* Name + Email */}
+  <div className="grid md:grid-cols-2 gap-5">
+    <input
+      type="text"
+      name="name"
+      value={formData.name}
+      onChange={handleChange}
+      placeholder="Your Name"
+      required
+      className="
+        mb-5
+        w-full
+        h-12
+        bg-[#0b1120]
+        border border-white/10
+        rounded-2xl
+        px-5
+        text-white
+        placeholder:text-gray-500
+        outline-none
+        focus:border-yellow-400
+        focus:shadow-[0_0_20px_rgba(250,204,21,0.15)]
+        transition-all
+      "
+    />
 
-                <input
-                  type="text"
-                  name="subject"
-                  value={formData.subject}
-                  onChange={handleChange}
-                  placeholder="Subject"
-                  required
-                  className="
-                    w-full
-                    bg-black
-                    border border-yellow-500/20
-                    rounded-xl
-                    px-5
-                    py-4
-                    outline-none
-                    focus:border-yellow-400
-                  "
-                />
+    <input
+      type="email"
+      name="email"
+      value={formData.email}
+      onChange={handleChange}
+      placeholder="Your Email"
+      required
+      className="
+         w-full
+        h-12
+        bg-[#0b1120]
+        border border-white/10
+        rounded-2xl
+        px-5
+        text-white
+        placeholder:text-gray-500
+        outline-none
+        focus:border-yellow-400
+        focus:shadow-[0_0_20px_rgba(250,204,21,0.15)]
+        transition-all
+      "
+    />
+  </div>
 
-                <textarea
-                  rows="8"
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  placeholder="Your Message"
-                  required
-                  className="
-                    w-full
-                    bg-black
-                    border border-yellow-500/20
-                    rounded-xl
-                    px-5
-                    py-4
-                    resize-none
-                    outline-none
-                    focus:border-yellow-400
-                  "
-                ></textarea>
+  {/* Subject */}
+  <input
+    type="text"
+    name="subject"
+    value={formData.subject}
+    onChange={handleChange}
+    placeholder="Subject"
+    required
+    className="
+       w-[95%]
+      h-12
+      bg-[#0b1120]
+      border border-white/10
+      rounded-2xl
+      px-5
+      text-white
+      placeholder:text-gray-500
+      outline-none
+      focus:border-yellow-400
+      focus:shadow-[0_0_20px_rgba(250,204,21,0.15)]
+      transition-all
+    "
+  />
 
-                <button
-                  type="submit"
-                  disabled={loading}
-                  className="
-                    w-full
-                    bg-yellow-400
-                    text-black
-                    font-bold
-                    py-4
-                    rounded-xl
-                    hover:bg-yellow-300
-                    hover:scale-[1.02]
-                    transition-all
-                    duration-300
-                    shadow-lg
-                    shadow-yellow-500/20
-                    disabled:opacity-70
-                  "
-                >
-                  {loading
-                    ? "Sending..."
-                    : "Send Message"}
-                </button>
-              </form>
+  {/* Message */}
+  <textarea
+    rows="6"
+    name="message"
+    value={formData.message}
+    onChange={handleChange}
+    placeholder="Write your message..."
+    required
+    className="
+      w-[95%]
+      h-12
+      border border-white/10
+      rounded-2xl
+      px-5
+      py-4
+      text-white
+      placeholder:text-gray-500
+      resize-none
+      outline-none
+      focus:border-yellow-400
+      focus:shadow-[0_0_20px_rgba(250,204,21,0.15)]
+      transition-all
+    "
+  />
+
+  {/* Submit Button */}
+  <button
+    type="submit"
+    disabled={loading}
+    className="
+      w-[95%]
+      h-12
+      rounded-2xl
+      bg-gradient-to-r
+      from-yellow-400
+      to-yellow-500
+      text-black
+      font-bold
+      text-lg
+      hover:scale-[1.02]
+      hover:shadow-[0_0_30px_rgba(250,204,21,0.35)]
+      transition-all
+      duration-300
+      disabled:opacity-60
+      disabled:cursor-not-allowed
+    "
+  >
+    {loading ? "Sending..." : "Send Message →"}
+  </button>
+</form>
             </div>
           </div>
         </div>

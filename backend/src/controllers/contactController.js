@@ -1,6 +1,11 @@
 const supabase = require("../config/supabase");
 
-// Create Contact
+/*
+|--------------------------------------------------------------------------
+| Create Contact
+|--------------------------------------------------------------------------
+*/
+
 const createContact = async (req, res) => {
   try {
     const { name, email, subject, message } = req.body;
@@ -20,6 +25,7 @@ const createContact = async (req, res) => {
           email,
           subject,
           message,
+          status: "New",
         },
       ])
       .select();
@@ -44,7 +50,12 @@ const createContact = async (req, res) => {
   }
 };
 
-// Get All Contacts
+/*
+|--------------------------------------------------------------------------
+| Get All Contacts
+|--------------------------------------------------------------------------
+*/
+
 const getContacts = async (req, res) => {
   try {
     const { data, error } = await supabase
@@ -74,7 +85,12 @@ const getContacts = async (req, res) => {
   }
 };
 
-// Dashboard Stats
+/*
+|--------------------------------------------------------------------------
+| Dashboard Stats
+|--------------------------------------------------------------------------
+*/
+
 const getDashboardStats = async (req, res) => {
   try {
     const { data, error } = await supabase
@@ -116,17 +132,35 @@ const getDashboardStats = async (req, res) => {
   }
 };
 
-// Update Contact Status
+/*
+|--------------------------------------------------------------------------
+| Update Contact
+|--------------------------------------------------------------------------
+*/
+
 const updateContact = async (req, res) => {
   try {
     const { id } = req.params;
-    const { status } = req.body;
+
+    const {
+      name,
+      email,
+      subject,
+      message,
+      status,
+    } = req.body;
+
+    const updateData = {};
+
+    if (name !== undefined) updateData.name = name;
+    if (email !== undefined) updateData.email = email;
+    if (subject !== undefined) updateData.subject = subject;
+    if (message !== undefined) updateData.message = message;
+    if (status !== undefined) updateData.status = status;
 
     const { data, error } = await supabase
       .from("contacts")
-      .update({
-        status,
-      })
+      .update(updateData)
       .eq("id", id)
       .select();
 
@@ -150,7 +184,12 @@ const updateContact = async (req, res) => {
   }
 };
 
-// Delete Contact
+/*
+|--------------------------------------------------------------------------
+| Delete Contact
+|--------------------------------------------------------------------------
+*/
+
 const deleteContact = async (req, res) => {
   try {
     const { id } = req.params;

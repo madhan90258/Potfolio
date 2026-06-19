@@ -11,45 +11,72 @@ import {
   FaTrash,
   FaSearch,
   FaCalendarAlt,
+  FaEdit,
 } from "react-icons/fa";
 
 function AdminDashboard() {
   const [messages, setMessages] = useState([]);
-const [loading, setLoading] = useState(true);
-
+  const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [selectedMessage, setSelectedMessage] = useState(null);
+  const [editMessage, setEditMessage] = useState(null);
   useEffect(() => {
-  fetchMessages();
-}, []);
+    fetchMessages();
+  }, []);
 
-const fetchMessages = async () => {
-  try {
-    const { data } = await API.get("/contacts");
-    setMessages(data.data || []);
-  } catch (error) {
-    console.error(error);
-    toast.error("Failed to load messages");
-  } finally {
-    setLoading(false);
-  }
-};
+  const fetchMessages = async () => {
+    try {
+      const { data } = await API.get("/contacts");
+      setMessages(data.data || []);
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to load messages");
+    } finally {
+      setLoading(false);
+    }
+  };
 
-const deleteMessage = async (id) => {
-  try {
-    await API.delete(`/contact/${id}`);
+  const deleteMessage = async (id) => {
+    try {
+      await API.delete(`/contact/${id}`);
 
-    setMessages((prev) =>
-      prev.filter((msg) => msg.id !== id)
-    );
+      setMessages((prev) =>
+        prev.filter((msg) => msg.id !== id)
+      );
 
-    toast.success("Message deleted successfully");
-  } catch (error) {
-    console.error(error);
-    toast.error("Delete failed");
-  }
-};
-  
+      toast.success("Message deleted successfully");
+    } catch (error) {
+      console.error(error);
+      toast.error("Delete failed");
+    }
+  };
+
+  const updateMessage = async () => {
+    try {
+      await API.put(`/contact/${editMessage.id}`, {
+        name: editMessage.name,
+        email: editMessage.email,
+        subject: editMessage.subject,
+        message: editMessage.message,
+      });
+
+      setMessages((prev) =>
+        prev.map((msg) =>
+          msg.id === editMessage.id
+            ? editMessage
+            : msg
+        )
+      );
+
+      setEditMessage(null);
+
+      toast.success("Message updated successfully");
+    } catch (error) {
+      console.error(error);
+      toast.error("Update failed");
+    }
+  };
+
   const filteredMessages = messages.filter(
     (msg) =>
       msg.name.toLowerCase().includes(search.toLowerCase()) ||
@@ -57,46 +84,46 @@ const deleteMessage = async (id) => {
       msg.subject.toLowerCase().includes(search.toLowerCase())
   );
   const todayMessages = messages.filter((msg) => {
-  const today = new Date();
+    const today = new Date();
 
-  const date = new Date(msg.created_at);
+    const date = new Date(msg.created_at);
 
-  return (
-    date.toDateString() ===
-    today.toDateString()
-  );
-}).length;
+    return (
+      date.toDateString() ===
+      today.toDateString()
+    );
+  }).length;
 
-const weekMessages = messages.filter((msg) => {
-  const today = new Date();
+  const weekMessages = messages.filter((msg) => {
+    const today = new Date();
 
-  const messageDate = new Date(msg.created_at);
+    const messageDate = new Date(msg.created_at);
 
-  const diffInDays =
-    (today - messageDate) /
-    (1000 * 60 * 60 * 24);
+    const diffInDays =
+      (today - messageDate) /
+      (1000 * 60 * 60 * 24);
 
-  return diffInDays <= 7;
-}).length;
+    return diffInDays <= 7;
+  }).length;
 
-if (loading) {
-  return (
-    <div className="min-h-screen bg-black flex items-center justify-center">
-      <div className="text-white text-2xl font-semibold">
-        Loading Messages...
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-black flex items-center justify-center">
+        <div className="text-white text-2xl font-semibold">
+          Loading Messages...
+        </div>
       </div>
-    </div>
-  );
-}
+    );
+  }
   return (
-   <section className="min-h-screen bg-gradient-to-br from-[#050816] via-[#0f172a] to-[#020617] text-white flex justify-center items-start pt-40">
+    <section className="min-h-screen bg-gradient-to-br from-[#050816] via-[#0f172a] to-[#020617] text-white flex justify-center items-start pt-40">
       <div className="w-full max-w-6xl px-10 lg:px-12 pb-10 mx-auto mt-[200px]">
         {/* Header */}
         <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mt-16 mb-20">
           <div>
-          
+
             <h1 className="text-4xl lg:text-5xl font-bold text-yellow-400">
-                Admin Dashboard
+              Admin Dashboard
             </h1>
 
             <p className="text-gray-400 mt-2 text-lg">
@@ -105,11 +132,11 @@ if (loading) {
           </div>
 
           <button
-          onClick={() => {
-          localStorage.removeItem("token");
-          localStorage.removeItem("admin");
-         window.location.href = "/";
-         }}
+            onClick={() => {
+              localStorage.removeItem("token");
+              localStorage.removeItem("admin");
+              window.location.href = "/";
+            }}
             className="
               mt-5 lg:mt-0
               flex items-center gap-2
@@ -233,16 +260,16 @@ if (loading) {
 "
         >
           {/* Top Section */}
-<div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6 mb-10 px-8">
-  <div>
-    <h2 className="text-2xl font-bold text-yellow-400">
-      Contact Messages
-    </h2>
+          <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6 mb-10 px-8">
+            <div>
+              <h2 className="text-2xl font-bold text-yellow-400">
+                Contact Messages
+              </h2>
 
-    <p className="text-gray-500 mt-2">
-      Manage all incoming contact requests
-    </p>
-  </div>
+              <p className="text-gray-500 mt-2">
+                Manage all incoming contact requests
+              </p>
+            </div>
 
             <div className="flex flex-col md:flex-row items-center gap-4">
               {/* Search */}
@@ -280,37 +307,37 @@ if (loading) {
               {/* Export Buttons */}
               <div className="flex gap-3">
                 <button
-  onClick={async () => {
-    try {
-      const token =
-        localStorage.getItem("token");
+                  onClick={async () => {
+                    try {
+                      const token =
+                        localStorage.getItem("token");
 
-      const response = await fetch(
-        "http://localhost:5000/api/export/excel",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+                      const response = await fetch(
+                        "http://localhost:5000/api/export/excel",
+                        {
+                          headers: {
+                            Authorization: `Bearer ${token}`,
+                          },
+                        }
+                      );
 
-      const blob =
-        await response.blob();
+                      const blob =
+                        await response.blob();
 
-      const url =
-        window.URL.createObjectURL(blob);
+                      const url =
+                        window.URL.createObjectURL(blob);
 
-      const a =
-        document.createElement("a");
+                      const a =
+                        document.createElement("a");
 
-      a.href = url;
-      a.download = "contacts.xlsx";
-      a.click();
-    } catch (error) {
-      console.error(error);
-    }
-  }}
-  className="
+                      a.href = url;
+                      a.download = "contacts.xlsx";
+                      a.click();
+                    } catch (error) {
+                      console.error(error);
+                    }
+                  }}
+                  className="
     h-14 px-5
     bg-green-500/10
     text-green-400
@@ -320,42 +347,42 @@ if (loading) {
     hover:text-white
     transition-all
   "
->
-  <FaFileExcel size={18} />
-</button>
+                >
+                  <FaFileExcel size={18} />
+                </button>
 
                 <button
-  onClick={async () => {
-    try {
-      const token =
-        localStorage.getItem("token");
+                  onClick={async () => {
+                    try {
+                      const token =
+                        localStorage.getItem("token");
 
-      const response = await fetch(
-        "http://localhost:5000/api/export/csv",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+                      const response = await fetch(
+                        "http://localhost:5000/api/export/csv",
+                        {
+                          headers: {
+                            Authorization: `Bearer ${token}`,
+                          },
+                        }
+                      );
 
-      const blob =
-        await response.blob();
+                      const blob =
+                        await response.blob();
 
-      const url =
-        window.URL.createObjectURL(blob);
+                      const url =
+                        window.URL.createObjectURL(blob);
 
-      const a =
-        document.createElement("a");
+                      const a =
+                        document.createElement("a");
 
-      a.href = url;
-      a.download = "contacts.csv";
-      a.click();
-    } catch (error) {
-      console.error(error);
-    }
-  }}
-  className="
+                      a.href = url;
+                      a.download = "contacts.csv";
+                      a.click();
+                    } catch (error) {
+                      console.error(error);
+                    }
+                  }}
+                  className="
     h-14 px-5
     bg-blue-500/10
     text-blue-400
@@ -365,42 +392,42 @@ if (loading) {
     hover:text-white
     transition-all
   "
->
-  <FaFileCsv size={18} />
-</button>
+                >
+                  <FaFileCsv size={18} />
+                </button>
 
                 <button
-  onClick={async () => {
-    try {
-      const token =
-        localStorage.getItem("token");
+                  onClick={async () => {
+                    try {
+                      const token =
+                        localStorage.getItem("token");
 
-      const response = await fetch(
-        "http://localhost:5000/api/export/pdf",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+                      const response = await fetch(
+                        "http://localhost:5000/api/export/pdf",
+                        {
+                          headers: {
+                            Authorization: `Bearer ${token}`,
+                          },
+                        }
+                      );
 
-      const blob =
-        await response.blob();
+                      const blob =
+                        await response.blob();
 
-      const url =
-        window.URL.createObjectURL(blob);
+                      const url =
+                        window.URL.createObjectURL(blob);
 
-      const a =
-        document.createElement("a");
+                      const a =
+                        document.createElement("a");
 
-      a.href = url;
-      a.download = "contacts.pdf";
-      a.click();
-    } catch (error) {
-      console.error(error);
-    }
-  }}
-  className="
+                      a.href = url;
+                      a.download = "contacts.pdf";
+                      a.click();
+                    } catch (error) {
+                      console.error(error);
+                    }
+                  }}
+                  className="
     h-14 px-5
     bg-red-500/10
     text-red-400
@@ -410,16 +437,16 @@ if (loading) {
     hover:text-white
     transition-all
   "
->
-  <FaFilePdf size={18} />
-</button>
+                >
+                  <FaFilePdf size={18} />
+                </button>
               </div>
             </div>
           </div>
 
           {/* Table */}
-<div className="overflow-x-auto flex justify-center">
-  <table className="w-[90%] mx-auto border-separate border-spacing-y-2">
+          <div className="overflow-x-auto flex justify-center">
+            <table className="w-[90%] mx-auto border-separate border-spacing-y-2">
               <thead>
                 <tr className="text-gray-400 text-sm uppercase tracking-wider">
                   <th className="text-left pb-4">Name</th>
@@ -460,38 +487,48 @@ if (loading) {
                       <div className="flex justify-center gap-3">
                         <button
                           onClick={() => setSelectedMessage(msg)}
-                         className="
-                         w-11 h-11
-                         rounded-xl
-                         bg-yellow-500/10
-                         text-yellow-400
-                         hover:bg-yellow-500
-                         hover:text-black
-                         transition-all
-                         "
-                       >
-                        <FaEye className="mx-auto" />
-                      </button>
+                          className="
+  text-yellow-400
+  text-lg
+  hover:text-yellow-300
+  transition-all
+  duration-200
+"
+                        >
+                          <FaEye className="mx-auto" />
+                        </button>
+
+                        <button
+                          onClick={() => setEditMessage(msg)}
+                          className="
+  text-blue-400
+  text-lg
+  hover:text-blue-300
+  transition-all
+  duration-200
+"
+                        >
+                          <FaEdit className="mx-auto" />
+                        </button>
+
 
                         <button
                           onClick={() => {
-  const confirmed = window.confirm(
-    "Are you sure you want to delete this message?"
-  );
+                            const confirmed = window.confirm(
+                              "Are you sure you want to delete this message?"
+                            );
 
-  if (confirmed) {
-    deleteMessage(msg.id);
-  }
-}}
+                            if (confirmed) {
+                              deleteMessage(msg.id);
+                            }
+                          }}
                           className="
-                            w-11 h-11
-                            rounded-xl
-                            bg-red-500/10
-                            text-red-400
-                            hover:bg-red-500
-                            hover:text-white
-                            transition-all
-                          "
+  text-red-400
+  text-lg
+  hover:text-red-300
+  transition-all
+  duration-200
+"
                         >
                           <FaTrash className="mx-auto" />
                         </button>
@@ -510,61 +547,148 @@ if (loading) {
           </div>
         </div>
       </div>
-      {selectedMessage && (
-  <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50">
-    <div className="w-full max-w-2xl bg-[#0f172a] border border-yellow-500/20 rounded-3xl p-8 shadow-2xl">
+      {editMessage && (
+        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50">
+          <div className="w-full max-w-2xl bg-[#0f172a] border border-blue-500/20 rounded-3xl p-8 shadow-2xl">
 
-      <div className="flex justify-between items-center mb-6">
-        <h2 className="text-2xl font-bold text-yellow-400">
-          Message Details
-        </h2>
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="text-2xl font-bold text-blue-400">
+                Edit Message
+              </h2>
 
-        <button
-          onClick={() => setSelectedMessage(null)}
-          className="text-red-400 text-xl"
-        >
-          ✕
-        </button>
-      </div>
+              <button
+                onClick={() => setEditMessage(null)}
+                className="text-red-400 text-xl"
+              >
+                ✕
+              </button>
+            </div>
 
-      <div className="space-y-4">
-        <div>
-          <p className="text-gray-400">Name</p>
-          <p className="text-lg">{selectedMessage.name}</p>
-        </div>
+            <div className="space-y-4">
 
-        <div>
-          <p className="text-gray-400">Email</p>
-          <p>{selectedMessage.email}</p>
-        </div>
+              <input
+                type="text"
+                value={editMessage.name}
+                onChange={(e) =>
+                  setEditMessage({
+                    ...editMessage,
+                    name: e.target.value,
+                  })
+                }
+                className="w-full bg-black border border-white/10 rounded-xl p-4"
+              />
 
-        <div>
-          <p className="text-gray-400">Subject</p>
-          <p>{selectedMessage.subject}</p>
-        </div>
+              <input
+                type="email"
+                value={editMessage.email}
+                onChange={(e) =>
+                  setEditMessage({
+                    ...editMessage,
+                    email: e.target.value,
+                  })
+                }
+                className="w-full bg-black border border-white/10 rounded-xl p-4"
+              />
 
-        <div>
-          <p className="text-gray-400">Date</p>
-          <p>
-            {new Date(
-              selectedMessage.created_at
-            ).toLocaleString()}
-          </p>
-        </div>
+              <input
+                type="text"
+                value={editMessage.subject}
+                onChange={(e) =>
+                  setEditMessage({
+                    ...editMessage,
+                    subject: e.target.value,
+                  })
+                }
+                className="w-full bg-black border border-white/10 rounded-xl p-4"
+              />
 
-        <div>
-          <p className="text-gray-400 mb-2">
-            Message
-          </p>
+              <textarea
+                rows="6"
+                value={editMessage.message}
+                onChange={(e) =>
+                  setEditMessage({
+                    ...editMessage,
+                    message: e.target.value,
+                  })
+                }
+                className="w-full bg-black border border-white/10 rounded-xl p-4 resize-none"
+              />
 
-          <div className="bg-black/40 border border-white/10 rounded-xl p-4 min-h-[120px]">
-            {selectedMessage.message}
+              <button
+                onClick={updateMessage}
+                className="
+            w-full
+            py-4
+            bg-blue-500
+            hover:bg-blue-600
+            rounded-xl
+            font-bold
+            transition-all
+          "
+              >
+                Update Message
+              </button>
+
+            </div>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
-)}
+      )}
+
+      {selectedMessage && (
+        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50">
+          <div className="w-full max-w-2xl bg-[#0f172a] border border-yellow-500/20 rounded-3xl p-8 shadow-2xl">
+
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="text-2xl font-bold text-yellow-400">
+                Message Details
+              </h2>
+
+              <button
+                onClick={() => setSelectedMessage(null)}
+                className="text-red-400 text-xl"
+              >
+                ✕
+              </button>
+            </div>
+
+            <div className="space-y-4">
+              <div>
+                <p className="text-gray-400">Name</p>
+                <p className="text-lg">{selectedMessage.name}</p>
+              </div>
+
+              <div>
+                <p className="text-gray-400">Email</p>
+                <p>{selectedMessage.email}</p>
+              </div>
+
+              <div>
+                <p className="text-gray-400">Subject</p>
+                <p>{selectedMessage.subject}</p>
+              </div>
+
+              <div>
+                <p className="text-gray-400">Date</p>
+                <p>
+                  {new Date(
+                    selectedMessage.created_at
+                  ).toLocaleString()}
+                </p>
+              </div>
+
+              <div>
+                <p className="text-gray-400 mb-2">
+                  Message
+                </p>
+
+                <div className="bg-black/40 border border-white/10 rounded-xl p-4 min-h-[120px]">
+                  {selectedMessage.message}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 }
