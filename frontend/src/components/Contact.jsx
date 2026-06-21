@@ -46,10 +46,28 @@ function Contact() {
     }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    if (!validate()) return;
+  if (!validate()) return;
+
+  try {
+    const response = await fetch(
+      "http://localhost:5000/api/contact",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      }
+    );
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message);
+    }
 
     setSuccess(true);
 
@@ -63,8 +81,11 @@ function Contact() {
     setTimeout(() => {
       setSuccess(false);
     }, 4000);
-  };
-
+  } catch (error) {
+    console.error(error);
+    alert(error.message || "Failed to send message");
+  }
+};
   return (
   <section
   id="contact"
@@ -80,8 +101,6 @@ function Contact() {
     scrollMarginTop: "100px",
   }}
 >
-
-          <h2 style={styles.mainTitle}>Get In Touch</h2>
 
         </div>
 
@@ -307,7 +326,7 @@ nameEmailRow: {
 
   headingArea: {
   textAlign: "center",
-  marginBottom: "40px",
+  marginBottom: "100px",
 },
 
   smallTitle: {
@@ -379,15 +398,15 @@ nameEmailRow: {
   },
 
   inputWrapper: {
-    display: "flex",
-    alignItems: "center",
-    gap: "10px",
-    background: "#050505",
-    border: "1px solid rgba(250,204,21,0.15)",
-    borderRadius: "12px",
-    padding: "12px",
-    color: "#facc15",
-  },
+  display: "flex",
+  alignItems: "flex-start",
+  gap: "10px",
+  background: "#050505",
+  border: "1px solid rgba(250,204,21,0.15)",
+  borderRadius: "12px",
+  padding: "12px",
+  color: "#facc15",
+},
 
   input: {
     width: "100%",
@@ -399,14 +418,16 @@ nameEmailRow: {
   },
 
   textarea: {
-    width: "100%",
-    background: "transparent",
-    border: "none",
-    outline: "none",
-    color: "#ffffff",
-    resize: "vertical",
-    fontSize: "15px",
-  },
+  width: "100%",
+  height: "100px",
+  background: "transparent",
+  border: "none",
+  outline: "none",
+  color: "#ffffff",
+  resize: "none",
+  fontSize: "15px",
+  fontFamily: "inherit",
+},
 
   button: {
     width: "100%",
