@@ -117,7 +117,7 @@ function AdminLogin() {
           {/* Email */}
           <input
             type="email"
-            placeholder="Admin Email"
+            placeholder="  Admin Email"
             value={email}
             onChange={(e) =>
               setEmail(e.target.value)
@@ -147,7 +147,7 @@ function AdminLogin() {
                   ? "text"
                   : "password"
               }
-              placeholder="Password"
+              placeholder="   Password"
               value={password}
               onChange={(e) =>
                 setPassword(e.target.value)
@@ -216,12 +216,6 @@ function AdminLogin() {
               ? "Logging In..."
               : "Login"}
           </button>
-
-          {/* Demo Credentials */}
-          <div className="text-center text-sm text-gray-500">
-            <p>Email: admin@gmail.com</p>
-            <p>Password: admin123</p>
-          </div>
 
           {/* Back Button */}
           <a
