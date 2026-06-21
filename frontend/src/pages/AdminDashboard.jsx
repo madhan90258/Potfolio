@@ -94,7 +94,7 @@ function AdminDashboard() {
     const token = localStorage.getItem("token");
 
     const response = await axios.get(
-      "http://localhost:5000/api/export/excel",
+      `${import.meta.env.VITE_API_URL}/api/export/excel`,
       {
         responseType: "blob",
         headers: {
@@ -130,7 +130,7 @@ const exportCSV = async () => {
     const token = localStorage.getItem("token");
 
     const response = await axios.get(
-      "http://localhost:5000/api/export/csv",
+      `${import.meta.env.VITE_API_URL}/api/export/csv`,
       {
         responseType: "blob",
         headers: {
@@ -166,7 +166,7 @@ const exportPDF = async () => {
     const token = localStorage.getItem("token");
 
     const response = await axios.get(
-      "http://localhost:5000/api/export/pdf",
+      `${import.meta.env.VITE_API_URL}/api/export/pdf`,
       {
         responseType: "blob",
         headers: {
