@@ -197,12 +197,23 @@ const exportPDF = async () => {
   }
 };
 
-  const filteredMessages = messages.filter(
-    (msg) =>
-      msg.name.toLowerCase().includes(search.toLowerCase()) ||
-      msg.email.toLowerCase().includes(search.toLowerCase()) ||
-      msg.subject.toLowerCase().includes(search.toLowerCase())
+  const filteredMessages = messages.filter((msg) => {
+  const searchTerm = search.toLowerCase().trim();
+
+  return (
+    (msg.name || "")
+      .toLowerCase()
+      .includes(searchTerm) ||
+
+    (msg.email || "")
+      .toLowerCase()
+      .includes(searchTerm) ||
+
+    (msg.subject || "")
+      .toLowerCase()
+      .includes(searchTerm)
   );
+});
 
   const todayMessages = messages.filter(
     (msg) =>
@@ -237,7 +248,10 @@ const exportPDF = async () => {
             <p>Welcome Back, Madhan Raj 👋</p>
           </div>
 
-          <button className="logout-btn" onClick={handleLogout}>
+          <button
+  className="logout-btn"
+  onClick={handleLogout}
+>
             <FaSignOutAlt />
             Logout
           </button>
@@ -285,7 +299,7 @@ const exportPDF = async () => {
                 <FaSearch />
                 <input
                   type="text"
-                  placeholder="Search messages..."
+                  placeholder="Search by Name, Email or Subject..."
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
                 />
@@ -336,10 +350,10 @@ const exportPDF = async () => {
                       {msg.subject}
                     </td>
                     <td>
-                      {new Date(
-                        msg.created_at
-                      ).toLocaleDateString()}
-                    </td>
+  {new Date(
+    msg.created_at
+  ).toLocaleDateString("en-GB")}
+</td>
 
                     <td>
                       <div className="actions">
@@ -416,11 +430,15 @@ const exportPDF = async () => {
       </p>
 
       <p>
-        <strong>Date:</strong>{" "}
-        {new Date(
-          selectedMessage.created_at
-        ).toLocaleString()}
-      </p>
+  <strong>Date:</strong>{" "}
+  {new Date(
+    selectedMessage.created_at
+  ).toLocaleDateString("en-IN", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+  })}
+</p>
 
       <div className="message-box">
         {selectedMessage.message}
