@@ -68,11 +68,13 @@ function About() {
               </a>
 
               <a
-                href="mailto:madhan90258@gmail.com"
-                className="text-4xl text-gray-400 hover:text-yellow-400 hover:scale-125 transition-all duration-300"
-              >
-                <FaEnvelope />
-              </a>
+  href="https://mail.google.com/mail/?view=cm&fs=1&to=madhan90258@gmail.com"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="text-4xl text-gray-400 hover:text-yellow-400 hover:scale-125 transition-all duration-300"
+>
+  <FaEnvelope />
+</a>
 
             </div>
 
